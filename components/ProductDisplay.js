@@ -21,6 +21,7 @@ Vue.component('product-display', {
         }
     },
     methods : {
+        // 선택한 상품을 index로 받아와서 수정
         updateVariant : function(index) {
             this.selction = index;
         }
@@ -63,6 +64,7 @@ Vue.component('product-display', {
 
                 <!-- 색상 바꾸기 -->
                 <!-- 값을 두개 들고오면 뒤에 오는 값은 배열의 인덱스값 -->
+                <!-- 배열의 인덱스 값을 메소드의 인자로 전달(선택한 상품) -->
                 <div 
                     class="color-circle"
                     v-for="(variant, index) in variants"

@@ -16,8 +16,25 @@
         <product-display></product-display>
         
         <!-- 리뷰 리스트-->
+        <!-- 안에서 v-for로 반복하기위해사 배열을 통채로 넘겨줌 -->
         <review-list v-bind:reviews="reviews"></review-list>
 
+        <!-- 뷰 인스턴스에서 v-for로 반복해줌 -->
+        <review-list-other v-for="review in reviews">
+            <template v-slot:name>
+                {{review.name}}
+            </template>
+            <template v-slot:rating>
+                {{review.rating}}
+            </template>
+            <template v-slot:review>
+                {{review.review}}
+            </template>
+            <template v-slot:recommend>
+                {{review.recommend}}
+            </template>
+        </review-list-other>
+        
         <!-- 리뷰 작성 폼-->
         <review-form v-on:submit-review="addReview"></review-form>
 
@@ -27,6 +44,7 @@
     <script src="./components/ProductDisplay.js"></script>
     <script src="./components/ReviewForm.js"></script>
     <script src="./components/ReviewList.js"></script>
+    <script src="./components/ReviewListOther.js"></script>
 
     <!-- Vue app -->
     <script>

@@ -1,21 +1,24 @@
 Vue.component('review-form',{
         data : function () {
         return {
+            // 리뷰에서 가져올 값
             name : '',
             review : "",
-            rating :null,
-            recommend : null
+            rating : null, // 빈값으로 두기위해 null사용
+            recommend : null // 기본값을 사용하고싶다면 option값을 넣어도 OK
         }
     },
     methods : {
         onSubmit : function () {
-            
+            // 리뷰에 작성된 값을 객체로 만듦
             let productReview = {
                 name :this.name,
                 review : this.review,
                 rating : this.rating,
                 recommend : this.recommend
             }
+            // emit을 이용하여 사용자 이벤트를 만들어서 인자(객체)와 함께 전달
+            // emit으로 만든 이벤트의 이름은 -(하이픈)으로 연결 : HTML이 인식
             this.$emit('submit-review', productReview)
         }
     },
