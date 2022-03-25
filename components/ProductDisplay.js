@@ -11,10 +11,18 @@ Vue.component('product-display', {
                 '나일론끈'
             ],
             // 상품의 종류 - 배열안에 색, 이미지, 재고 
+            // 1. 상품의 종류 추가해보기
             variants : [
-                {color : 'white', image :"./images/mask_white.jpg" , stock :10},
+                {color : 'white', image :"./images/mask_white.jpg", stock :10},
                 {color : 'black', image :"./images/mask_black.jpg", stock : 0}
-            ]
+            ],
+            // 선택한 상품
+            selction : 0,
+        }
+    },
+    methods : {
+        updateVariant : function(index) {
+            this.selction = index;
         }
     },
     computed : {
@@ -22,12 +30,13 @@ Vue.component('product-display', {
             return this.brand+" "+this.product;
         },
         image : function() {
-            //배열의 이미지값을 들고오기위함
-            return this.variants[1].image
+            // 배열의 이미지값을 들고오기위함
+            // selction을 이용하여 선택한 상품의 인덱스를 받아옴
+            return this.variants[this.selction].image
         },
         isStock : function() {
             //배열의 재고의 값을 들고오기위함
-            return this.variants[1].stock
+            return this.variants[this.selction].stock
         }
     },
     template : `
@@ -53,10 +62,21 @@ Vue.component('product-display', {
                 </ul>
 
                 <!-- 색상 바꾸기 -->
-                <div class="color-circle"></div>
+                <!-- 값을 두개 들고오면 뒤에 오는 값은 배열의 인덱스값 -->
+                <div 
+                    class="color-circle"
+                    v-for="(variant, index) in variants"
+                    v-bind:style="{ backgroundColor: variant.color }"
+                    v-on:mouseover="updateVariant(index)"
+                    >
+                </div>
 
                 <!-- 버튼 -->
-                <button class="button">장바구니에 추가</button>
+                <button 
+                    class="button"
+                    v-bind:class = "{ disabledButton : !isStock }">
+                    장바구니에 추가
+                </button>
             </div>
         </div>
     </div>
